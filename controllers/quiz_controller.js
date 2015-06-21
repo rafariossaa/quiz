@@ -17,12 +17,22 @@ exports.load = function(req, res, next, quizId) {
 };
 
 
-// GET /quizes
+// GET /quizes  o GET /quizes?search=cadena_de_busqueda
 exports.index = function(req, res) {
-  models.Quiz.findAll().then(function(quizes) {
+  
+  var busqueda = '';
+
+  if (req.param('search')) {
+    busqueda = '%' + req.param('search').replace(' ','%') + '%';
+  } else {
+     busqueda = '%';
+  }
+
+  models.Quiz.findAll({where: ["pregunta like ?", busqueda]}).then(function(quizes) {
     res.render('quizes/index', { quizes: quizes });
   }
  ).catch(function(error) { next(error);})
+
 };
 
 
