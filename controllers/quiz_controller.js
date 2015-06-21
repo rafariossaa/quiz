@@ -23,12 +23,12 @@ exports.index = function(req, res) {
   var busqueda = '';
 
   if (req.param('search')) {
-    busqueda = '%' + req.param('search').replace(' ','%') + '%';
+    busqueda = '%' + req.param('search').replace(' ','%').toLowerCase() + '%';
   } else {
      busqueda = '%';
   }
 
-  models.Quiz.findAll({where: ["pregunta like ?", busqueda]}).then(function(quizes) {
+  models.Quiz.findAll({where: ["lower(pregunta) like ?", busqueda]}).then(function(quizes) {
     res.render('quizes/index', { quizes: quizes });
   }
  ).catch(function(error) { next(error);})
