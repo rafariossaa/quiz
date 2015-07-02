@@ -61,31 +61,6 @@ exports.new = function(req, res) {
 };
 
 //POST /quizes/create
-
-/*
-exports.create = function(req, res) {
-  var quiz = models.Quiz.build(req.body.quiz);
-
-  console.log(req.body.quiz);
-
-  // guarda en DB los capos pregunta y respuesta de quiz
-  var errors = quiz.validate(); //ya que el objeto errors no tiene then()
-
-  console.log(errors);
- 
-  if (errors) {
-    var i =0; var errores = new Array(); // se convierte [] con la propiedad message por comptibilidad con layout
-    for (var prop in errors) errores[i++]={message: errors[prop]};
-    res.render('quizes/new', {quiz: quiz, errors: errores });
-
-  } else {
-      quiz  
-      .save({fields: ["pregunta", "respuesta"]})
-      .then(function() { res.redirect('/quizes')}) // Redireccion HTTP (URL relativo) lista de preguntas
-  }
-};
-*/
-
 exports.create = function(req, res) {
   var quiz = models.Quiz.build (req.body.quiz);
 
@@ -97,7 +72,7 @@ exports.create = function(req, res) {
         res.render('quizes/new', {quiz: quiz, errors: err.errors});
       } else {
         quiz // save: guarda en DB cmpos pregutna y respuesta de quiz
-        .save({fileds: ["pregunta", "respuesta"]})
+        .save({fields: ["pregunta", "respuesta"]})
         .then( function() { res.redirect('/quizes')})
       }
     }
@@ -125,7 +100,7 @@ exports.update = function (req, res) {
         res.render('quizes/edit', {quiz: req.quiz, errors: err.errors});
       } else {
         req.quiz  // save: guarda campos pregunta y respuesta en DB
-        .save( {fileds: ["pregunta", "respuesta"]})
+        .save( {fields: ["pregunta", "respuesta"]})
         .then( function () { res.redirect('/quizes'); });
       }
     });
