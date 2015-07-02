@@ -45,7 +45,7 @@ sequelize.sync().then(function() {
                     respuesta: 'Lisboa' ,
                     tema: 'otro'
                   })
-          .success(function(){console.log('Base de datos inicializada')});
+          .then(function(){console.log('Base de datos inicializada')});
     };
   });
 });
