@@ -103,7 +103,6 @@ exports.update = function (req, res) {
   .then(
     function(err) {
       if (err) {
-        console.log("errores:" + err);
         res.render('quizes/edit', {quiz: req.quiz, errors: err.errors});
       } else {
         req.quiz  // save: guarda campos pregunta y respuesta en DB
