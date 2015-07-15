@@ -29,6 +29,24 @@ app.use(session());
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+// Añade time out para la sesion en 
+app.use(function(req, res, next){
+  if (req.session.user){
+       if(req.session.time && (((new Date()).getTime() - req.session.time) > 120000 )){
+           delete req.session.user;
+           delete req.session.time;
+           res.redirect('/login');
+       }else{
+           req.session.time = (new Date()).getTime();
+       }
+   }   
+
+  next();
+});
+
+
+
 // Helpers dinamicos:
 app.use(function(req, res, next) {
   // guardar path en session.redir para despues de login
